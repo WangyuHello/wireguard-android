@@ -33,3 +33,18 @@
 -keepclasseswithmembers class * {
     @androidx.annotation.Keep <init>(...);
 }
+
+-keep class org.xbill.DNS.*
+-keep class com.sun.jna.*
+-keep class java.net.spi.*
+-keep class sun.net.spi.*
+-keep class lombok.*
+-keep class javax.naming.*
+-dontwarn javax.**
+-dontwarn lombok.**
+-dontwarn com.sun.jna.platform.win32.Win32Exception
+-dontwarn org.slf4j.impl.StaticLoggerBinder
+-dontwarn org.xbill.DNS.spi.DnsjavaInetAddressResolverProvider
+-dontwarn sun.net.spi.nameservice.NameServiceDescriptor
+-dontwarn java.net.spi.InetAddressResolverProvider
+

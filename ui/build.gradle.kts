@@ -20,7 +20,7 @@ android {
     }
     namespace = pkg
     defaultConfig {
-        applicationId = pkg
+        applicationId = "dayu.wireguard.android"
         minSdk = 21
         targetSdk = 36
         versionCode = providers.gradleProperty("wireguardVersionCode").get().toInt()
@@ -31,6 +31,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
+    }
+    signingConfigs {
+        create("release") {
+            storeFile = file(
+                if (project.hasProperty("MYAPP_RELEASE_STORE_FILE")) project.property("MYAPP_RELEASE_STORE_FILE") as String else "my-release-key.jks"
+            )
+            storePassword = project.findProperty("MYAPP_RELEASE_STORE_PASSWORD") as String? ?: ""
+            keyAlias = project.findProperty("MYAPP_RELEASE_KEY_ALIAS") as String? ?: ""
+            keyPassword = project.findProperty("MYAPP_RELEASE_KEY_PASSWORD") as String? ?: ""
+        }
     }
     buildTypes {
         release {
@@ -44,6 +54,7 @@ android {
                     excludes += "META-INF/*.version"
                 }
             }
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             applicationIdSuffix = ".debug"

@@ -20,6 +20,9 @@ google-material = "com.google.android.material:material:1.12.0"
 jsr305 = "com.google.code.findbugs:jsr305:3.0.2"
 junit = "junit:junit:4.13.2"
 kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+dnsjava = "dnsjava:dnsjava:3.6.3"
+jna = "net.java.dev.jna:jna:5.17.0"
+lombok = "org.projectlombok:lombok:1.18.38"
 zxing-android-embedded = "com.journeyapps:zxing-android-embedded:4.3.0"
 
 [plugins]
