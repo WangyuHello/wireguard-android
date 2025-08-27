@@ -1,40 +1,18 @@
 # Android GUI for [WireGuard](https://www.wireguard.com/)
 
-**[Download from the Play Store](https://play.google.com/store/apps/details?id=com.wireguard.android)**
+## Add HTTPS dns record support
+[What is HTTPS dns record ?](https://vercara.digicert.com/resources/svcb-and-https-dns-records-the-future-of-service-discovery-and-connection-establishment)
 
-This is an Android GUI for [WireGuard](https://www.wireguard.com/). It [opportunistically uses the kernel implementation](https://git.zx2c4.com/android_kernel_wireguard/about/), and falls back to using the non-root [userspace implementation](https://git.zx2c4.com/wireguard-go/about/).
+A HTTPS dns record can store WireGuard port, ipv4 address and ipv6 address together. We can use them for peer host resolution.
 
-## Building
-
-```
-$ git clone --recurse-submodules https://git.zx2c4.com/wireguard-android
-$ cd wireguard-android
-$ ./gradlew assembleRelease
-```
-
-macOS users may need [flock(1)](https://github.com/discoteq/flock).
-
-## Embedding
-
-The tunnel library is [on Maven Central](https://search.maven.org/artifact/com.wireguard.android/tunnel), alongside [extensive class library documentation](https://javadoc.io/doc/com.wireguard.android/tunnel).
+An example of HTTPS record:
 
 ```
-implementation 'com.wireguard.android:tunnel:$wireguardTunnelVersion'
+1 . alpn="h3" port=12345 ipv4hint=xxx.xxx.xxx.xxx ipv6hint=yyyy:yyyy:yyyy:yyyy::y
 ```
 
-The library makes use of Java 8 features, so be sure to support those in your gradle configuration with [desugaring](https://developer.android.com/studio/write/java8-support#library-desugaring):
+This modified WireGuard client will choose ipv6 address if the phone has a unicast ipv6 address.
 
-```
-compileOptions {
-    sourceCompatibility JavaVersion.VERSION_17
-    targetCompatibility JavaVersion.VERSION_17
-    coreLibraryDesugaringEnabled = true
-}
-dependencies {
-    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.3"
-}
-```
+## Related project
 
-## Translating
-
-Please help us translate the app into several languages on [our translation platform](https://crowdin.com/project/WireGuard).
+Use [Natmap](https://github.com/heiher/natmap) for UDP hole punching and get ipv4 address and port. use this [scripts](https://github.com/heiher/natmap/issues/13#issuecomment-3236881490) to add HTTPS DNS record.
